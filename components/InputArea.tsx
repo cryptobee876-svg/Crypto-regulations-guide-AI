@@ -4,9 +4,10 @@ import { Send, Paperclip, Mic } from 'lucide-react';
 interface InputAreaProps {
   onSend: (text: string) => void;
   disabled: boolean;
+  placeholder?: string;
 }
 
-const InputArea: React.FC<InputAreaProps> = ({ onSend, disabled }) => {
+const InputArea: React.FC<InputAreaProps> = ({ onSend, disabled, placeholder }) => {
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -51,7 +52,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, disabled }) => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={disabled}
-            placeholder="Ask about global crypto regulations, AML compliance, or risk factors..."
+            placeholder={placeholder || "Ask about global crypto regulations, AML compliance, or risk factors..."}
             className="w-full bg-transparent border-none text-slate-100 placeholder-slate-500 focus:ring-0 resize-none py-3 max-h-[120px] text-sm md:text-base leading-relaxed scrollbar-thin scrollbar-thumb-slate-700"
             rows={1}
           />

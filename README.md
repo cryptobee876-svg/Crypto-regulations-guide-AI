@@ -37,26 +37,20 @@ This application provides real-time access to global crypto regulations, jurisdi
 - **Icons**: Lucide React
 - **Data Source**: CoinGecko API (Market Data)
 
-## 📦 Installation & Setup
+## 📦 Setup
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/cryptobee876-svg/crypto-regulations-guide.git
-   cd crypto-regulations-guide
-   ```
-
-2. **Install dependencies**
+1. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Configure Environment Variables**
+2. **Configure Environment Variables**
    Create a `.env` file in the root directory and add your Google Gemini API key:
    ```env
    API_KEY=your_google_gemini_api_key_here
    ```
 
-4. **Run Development Server**
+3. **Run Development Server**
    ```bash
    npm run dev
    ```
