@@ -7,9 +7,19 @@ export const sendMessageToGemini = async (
   countryContext?: string
 ): Promise<{ text: string; sources: GroundingSource[] }> => {
   
-  // Initialize Gemini Client
   // The API key is obtained exclusively from process.env.API_KEY as per coding guidelines.
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = process.env.API_KEY;
+
+  if (!apiKey) {
+    console.error("API Key is missing. Make sure VITE_API_KEY is set in Vercel Environment Variables and redeploy.");
+    return {
+      text: "⚠️ **Configuration Error**\n\nThe API key is missing. If you are on Vercel, please ensure you have added `VITE_API_KEY` to your Environment Variables and **redeployed** the application (a simple refresh is not enough, you must trigger a new build).",
+      sources: []
+    };
+  }
+  
+  // Initialize Gemini Client
+  const ai = new GoogleGenAI({ apiKey: apiKey });
 
   try {
     // Map internal history to Gemini Content format
@@ -31,8 +41,9 @@ export const sendMessageToGemini = async (
       systemInstruction += `\n\nCRITICAL CONTEXT: You are currently acting as a specialized legal guide for **${countryContext}**. Focus your answers strictly on the regulatory framework, licensing requirements (e.g., SEC for USA, VARA for Dubai, MAS for Singapore), and compliance nuances specific to ${countryContext}. If the user asks a general question, frame your answer within the context of ${countryContext}'s laws.`;
     }
 
+    // Switched to 'gemini-2.5-flash' for better stability and wider availability.
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
+      model: 'gemini-2.5-flash',
       contents: contents,
       config: {
         tools: [{ googleSearch: {} }],
@@ -64,11 +75,13 @@ export const sendMessageToGemini = async (
 
     return { text, sources };
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Service Error:", error);
     
+    const errorMsg = error.message || String(error);
+
     return {
-      text: "⚠️ **Compliance Engine Error**\n\nUnable to connect to the regulatory intelligence network. Please ensure your API key is valid and you have an active internet connection.",
+      text: `⚠️ **Compliance Engine Error**\n\nUnable to connect to the regulatory intelligence network.\n\n**Technical Details:** ${errorMsg}\n\nPlease ensure your API key is valid and has access to the \`gemini-2.5-flash\` model.`,
       sources: []
     };
   }
