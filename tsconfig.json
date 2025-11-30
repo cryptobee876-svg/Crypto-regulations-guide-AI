@@ -16,12 +16,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  {
   "compilerOptions": {
     "outDir": "dist",
     "skipLibCheck": true,
-    "noEmit": true
-  },
+    "noEmit": true,
   "include": ["src"],
   "exclude": ["node_modules", "dist", "vite.config.ts"]
 }
