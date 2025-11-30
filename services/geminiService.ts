@@ -8,17 +8,8 @@ export const sendMessageToGemini = async (
 ): Promise<{ text: string; sources: GroundingSource[] }> => {
   
   // Initialize Gemini Client
-  // The API key must be obtained exclusively from the environment variable process.env.API_KEY
-  const apiKey = process.env.API_KEY;
-  
-  if (!apiKey) {
-    return {
-      text: "⚠️ **Configuration Error**\n\nAPI Key is missing. Please ensure `API_KEY` is configured in your environment.",
-      sources: []
-    };
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
+  // The API key is obtained exclusively from process.env.API_KEY as per coding guidelines.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
     // Map internal history to Gemini Content format
