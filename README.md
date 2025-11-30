@@ -1,9 +1,5 @@
 # Automind's Crypto Regulations Guide (CRG)
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![React](https://img.shields.io/badge/React-18-blue)
-![Gemini](https://img.shields.io/badge/Gemini-2.5%20Flash-orange)
-
 A high-end, AI-powered regulatory intelligence platform designed for Web3 founders, legal teams, and institutional investors.
 
 ## 🚀 Features
@@ -25,10 +21,10 @@ A high-end, AI-powered regulatory intelligence platform designed for Web3 founde
 
 1. **Push to GitHub**: Commit all files including `package.json` and `vite.config.ts`.
 2. **Import Project**: In Vercel, import your repository.
-3. **Framework Preset**: Select **Vite**.
-4. **Environment Variables**:
+3. **Framework Preset**: Select **Vite** (Vercel usually detects this automatically).
+4. **Environment Variables (CRITICAL)**:
    - Go to **Project Settings > Environment Variables**.
-   - Add Key: `VITE_API_KEY`
+   - Add Key: `VITE_API_KEY` (Must start with VITE_)
    - Add Value: `Your_Google_Gemini_API_Key`
 5. **Deploy**: Click Deploy.
 
