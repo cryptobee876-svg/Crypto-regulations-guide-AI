@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Role, Message } from '../types';
-import { Bot, User, ExternalLink } from 'lucide-react';
+import { Bot, User, ExternalLink, Loader2 } from 'lucide-react';
 
 interface MessageBubbleProps {
   message: Message;
@@ -46,10 +46,15 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
             }
           `}>
             {message.isTyping ? (
-               <div className="flex items-center gap-1.5 h-6">
-                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-2 h-2 bg-purple-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-2 h-2 bg-indigo-500 rounded-full animate-bounce"></span>
+               <div className="flex items-center gap-3 h-6">
+                 <div className="flex items-center gap-1">
+                   <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-[bounce_1s_infinite_-0.3s]"></span>
+                   <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-[bounce_1s_infinite_-0.15s]"></span>
+                   <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-[bounce_1s_infinite]"></span>
+                 </div>
+                 <span className="text-xs font-medium bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent animate-pulse">
+                   Analyzing regulatory frameworks...
+                 </span>
               </div>
             ) : (
               <div className="prose prose-invert prose-p:my-2 prose-headings:text-indigo-300 prose-a:text-indigo-400 hover:prose-a:text-indigo-300 prose-ul:list-disc prose-ul:pl-4 max-w-none">

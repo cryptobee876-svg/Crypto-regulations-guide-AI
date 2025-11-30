@@ -8,18 +8,26 @@ export const sendMessageToGemini = async (
 ): Promise<{ text: string; sources: GroundingSource[] }> => {
   
   // Initialize Gemini Client
-  // API_KEY is assumed to be available in process.env
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  // The API key must be obtained exclusively from the environment variable process.env.API_KEY
+  const apiKey = process.env.API_KEY;
+  
+  if (!apiKey) {
+    return {
+      text: "⚠️ **Configuration Error**\n\nAPI Key is missing. Please ensure `API_KEY` is configured in your environment.",
+      sources: []
+    };
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
 
   try {
     // Map internal history to Gemini Content format
-    // Internal role is 'user' or 'model', which matches Gemini's expectations (except strictly lowercase)
     const contents = history.map(msg => ({
       role: msg.role === 'user' ? 'user' : 'model',
       parts: msg.parts.map(p => ({ text: p.text }))
     }));
 
-    // Append the current prompt as the latest user message
+    // Append the current prompt
     contents.push({
       role: 'user',
       parts: [{ text: prompt }]
@@ -33,7 +41,7 @@ export const sendMessageToGemini = async (
     }
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3-pro-preview',
       contents: contents,
       config: {
         tools: [{ googleSearch: {} }],

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip, Mic } from 'lucide-react';
+import { Send, Mic } from 'lucide-react';
 
 interface InputAreaProps {
   onSend: (text: string) => void;
@@ -42,10 +42,6 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, disabled, placeholder }) 
         
         <div className="relative flex items-end gap-2 bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 shadow-2xl">
           
-          <button className="p-3 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors shrink-0">
-            <Paperclip size={20} />
-          </button>
-
           <textarea
             ref={textareaRef}
             value={input}
@@ -53,7 +49,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, disabled, placeholder }) 
             onKeyDown={handleKeyDown}
             disabled={disabled}
             placeholder={placeholder || "Ask about global crypto regulations, AML compliance, or risk factors..."}
-            className="w-full bg-transparent border-none text-slate-100 placeholder-slate-500 focus:ring-0 resize-none py-3 max-h-[120px] text-sm md:text-base leading-relaxed scrollbar-thin scrollbar-thumb-slate-700"
+            className="w-full bg-transparent border-none text-slate-100 placeholder-slate-500 focus:ring-0 resize-none py-3 px-4 max-h-[120px] text-sm md:text-base leading-relaxed scrollbar-thin scrollbar-thumb-slate-700"
             rows={1}
           />
 
